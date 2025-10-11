@@ -14,19 +14,40 @@
       color: white;
     }
     table {
-      width: 80%; /* Or any specific width in pixels, e.g., 600px */
+      width: 80%;
       height: 700px;
       margin-left: auto;
       margin-right: auto;
       table-layout; auto;
       background-color: white;
     }
-    h1, p{
+    h1, p, h2, a, li{
       text-align: center;
       font-family: Trebuchet MS;
       color: white;
     }
-
+    iframe{
+      width: 100%;
+      max-width: 400px;
+      vertical-align: middle;
+    }
+    .wrapper{
+      padding:0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+      gap: 5rem;
+    }
+    .text{
+      flex: 1;
+    }
+    ul{
+      list-style-type: none;
+    }
+    a{
+      font-size: 20px;
+    }
   </style>
     
 
@@ -51,9 +72,9 @@
         <td>8:15 AM - 9:00 AM</td>
       </tr>
       <tr>
-        <td>9:00 AM - 9:10 AM</td>
-        <td> Break(1) </td>
-        <td></td>
+        <td style="background-color:#FFFFEF;">9:00 AM - 9:10 AM</td>
+        <td style="background-color:#FFFFEF;"> Break(1) </td>
+        <td style="background-color:#FFFFEF;"></td>
       </tr>
       <tr>
         <td>9:10 AM - 9:55 AM</td>
@@ -76,21 +97,34 @@
         <td> blublub </td>
       </tr>
       <tr>
-        <td>12:10 PM - 1:05 PM</td>
-        <td> Lunch </td>
-        <td> blublub </td>
+        <td style="background-color:#FFFFEF;">12:10 PM - 12:20 PM</td>
+        <td style="background-color:#FFFFEF;"> Break (2) </td>
+        <td style="background-color:#FFFFEF;"> blublub </td>
+      </tr>
+      <tr>
+        <td style="background-color:#FFFFEF;">12:20 PM - 1:05 PM</td>
+        <td style="background-color:#FFFFEF;"> Lunch </td>
+        <td style="background-color:#FFFFEF;"> blublub </td>
       </tr>
       <tr>
         <td>1:05 PM - 1:50 PM</td>
         <td rowspan="2"> Statistics </td>
         <td rowspan="2"> blublub </td>
       </tr>
+      <tr>
         <td>1:50 PM - 2:35 PM</td>
       </tr>
+      <tr>
+        <td style="background-color:#FFFFEF;">2:35 PM - 2:45 PM</td>
+        <td style="background-color:#FFFFEF;"> Break (3) </td>
+        <td style="background-color:#FFFFEF;"> blublub </td>
+      </tr>
+      <tr>
         <td>2:45 PM - 3:30 PM</td>
         <td> Study Period </td>
         <td> blublub </td>
       </tr>
+      <tr>
         <td>3:30 PM - 4:15 PM</td>
         <td> Values Education 3 </td>
         <td> blublub </td>
@@ -99,9 +133,12 @@
     
     </br></br>
     
-    <iframe src="https://www.youtube.com/embed/lmhifH1Wx8k"></iframe>
-
-
+  <h2>for the rest of the week...</h2>
+  <ul>
+    <li><a href="https://b2029artbalingit.github.io/CS3_1stQtrPortfolio/public/2Q1GPotassiumBalingit.html">Tuesday</li>
+    <li><a href="https://www.youtube.com/watch?v=IwXTLod6ye4&list=RDIwXTLod6ye4&start_radio=1">Wednesday</li>
+  
+  </ul>
   </head>
 </body>
 </html>
