@@ -68,7 +68,7 @@
         .rating label:hover,
         .rating label:hover ~ label,
         .rating input:checked ~ label {
-        color: gold;
+        color: rgb(238, 194, 0);
         content: "★";
         }
     </style>
@@ -131,7 +131,7 @@
         div.innerHTML = `
         <span class="movie-info">
             <strong>${movie.title}</strong> (${movie.year}) - ${movie.genre}  
-            <span class="stars">${starRating}</span>
+            <span class="stars" style="color:rgb(238, 194, 0); font-size: 22px; letter-spacing: 5px;">${starRating}</span>
         </span>
         <button class="delete-btn" onclick="deleteMovie('${key}')">Delete</button>
         `;
