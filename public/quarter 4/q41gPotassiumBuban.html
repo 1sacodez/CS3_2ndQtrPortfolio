@@ -153,10 +153,12 @@
     });
 
     function deleteMovie(key){
-    delete movieCollection[key];
-    localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
-    displayMovie();
-    }
+      if (confirm("Delete " + movieCollection[key].title + " (" + movieCollection[key].year + ")?") == true) {
+          delete movieCollection[key];
+          localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
+          displayMovie();
+          }
+      }
 
     displayMovie();
     </script>
