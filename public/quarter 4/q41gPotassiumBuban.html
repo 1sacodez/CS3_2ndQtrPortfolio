@@ -115,50 +115,58 @@
       
 
     <script>
-    let movieCollection = JSON.parse(localStorage.getItem("movieCollection")) || {};
+      let movieCollection = JSON.parse(localStorage.getItem("movieCollection")) || {};
 
-    function displayMovie(){
-    const list = document.getElementById("movieList");
-    list.innerHTML = "";
-    for (let key in movieCollection){
-        const movie = movieCollection[key];
-        const div = document.createElement("div");
-        div.className = "movie-item";
+      function displayMovie() {
+        const list = document.getElementById("movieList");
+        list.innerHTML = "";
+        for (let key in movieCollection) {
+          const movie = movieCollection[key];
+          const div = document.createElement("div");
+          div.className = "movie-item";
+          
+          const starRating = "★".repeat(Math.round(movie.rating)) + "☆".repeat(5 - Math.round(movie.rating));
+          
+          div.innerHTML = `
+            <span class="movie-info">
+              <strong>${movie.title}</strong> (${movie.year}) - ${movie.genre}  
+              <span class="stars" style="color:rgb(238, 194, 0); font-size: 22px; letter-spacing: 5px;">${starRating}</span>
+            </span>
+            <button class="delete-btn" onclick="deleteMovie('${key}')">Delete</button>
+          `;
+          list.appendChild(div);
+        }
+      }
+
+      document.getElementById("movieForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const key = document.getElementById("title").value.trim();
+        const title = document.getElementById("title").value.trim();
+        const year = document.getElementById("year").value.trim();
+        const genre = document.getElementById("genre").value.trim();
+        const rating = parseInt(document.querySelector('input[name="star"]:checked')?.value || 0);
         
-        const starRating = "★".repeat(movie.rating) + "☆".repeat(5 - movie.rating);
-        
-        div.innerHTML = `
-        <span class="movie-info">
-            <strong>${movie.title}</strong> (${movie.year}) - ${movie.genre}  
-            <span class="stars" style="color:rgb(238, 194, 0); font-size: 22px; letter-spacing: 5px;">${starRating}</span>
-        </span>
-        <button class="delete-btn" onclick="deleteMovie('${key}')">Delete</button>
-        `;
-        list.appendChild(div);
-    }
-    }
+        if (movieCollection[key]) {
+          const oldRating = movieCollection[key].rating;
+          const newRating = (parseFloat(oldRating) + rating) / 2;
+          movieCollection[key] = {title, year, genre, rating: newRating};
+        } else {
+          movieCollection[key] = {title, year, genre, rating};
+        }
 
-    document.getElementById("movieForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const key = document.getElementById("title").value.trim();
-    const title = document.getElementById("title").value.trim();
-    const year = document.getElementById("year").value.trim();
-    const genre = document.getElementById("genre").value.trim();
-    const rating = document.querySelector('input[name="star"]:checked')?.value || 0;
-    
-    movieCollection[key] = {title, year, genre, rating};
-    localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
-    displayMovie();
-    this.reset();
-    });
+        localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
+        displayMovie();
+        this.reset();
+      });
 
-    function deleteMovie(key){
-    delete movieCollection[key];
-    localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
-    displayMovie();
-    }
-
-    displayMovie();
+      function deleteMovie(key) {
+        if (confirm("Delete " + movieCollection[key].title + " (" + movieCollection[key].year + ")?")) {
+          delete movieCollection[key];
+          localStorage.setItem("movieCollection", JSON.stringify(movieCollection));
+          displayMovie();
+        }
+      }
+      displayMovie();
     </script>
   </body>
 </html>
