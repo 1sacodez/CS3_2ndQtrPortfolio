@@ -4,9 +4,7 @@ html {
 }
 
 body{
-  font-family: 'Open Sans', sans-serif;
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', 'Poppins', 'Roboto', sans-serif; /* error 10*/
   background-color: cornsilk;
   color:royalblue;
   padding: 0;
@@ -25,6 +23,8 @@ Requirements for the navigation:
 nav {
     width: 100%;
     background-color: #333;
+    position: fixed; /* error #3 */
+    display: flex; /* error #4 */
 }
 
 nav a {
@@ -35,7 +35,7 @@ nav a {
     text-decoration: none;
 }
 
-nav a :hover {
+nav a:hover { /* error #5: supposed to be no space */
     background-color: #ddd;
     color: black;
 }
@@ -48,6 +48,7 @@ nav a :hover {
     border: 1px solid black;
 }
 .point {
+    position: absolute; /* error #8 */
     height: 10px;
     width: 10px;
     background-color: red;
@@ -88,7 +89,7 @@ footer a {
     width: 32px;
     height: 32px;
     display: inline-block;
-    background: url('sprites.png') no-repeat;
+    background: url('./images/sprites.png') no-repeat; /* error #9 */
 }
 .facebook {
     background-position: -226px -129px;
