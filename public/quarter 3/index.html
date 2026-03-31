@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Membership Sign-up Forms</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      function confirmSubmit() {
+          return confirm("Are you sure you want to submit this form?");
+      }
+      function confirmReset() {
+        return confirm("Are you sure you want to reset the form?");
+      }
+    </script>
+  </head>
+  <body>
+    <fieldset class="pinfo">
+    <legend>Personal Information</legend>
+    <form id="signupForm" method="POST"
+      onsubmit="return confirmSubmit()"
+      onreset="return confirmReset()"
+    >
+    
+      <label for="studentId">Student ID:</label><br>
+      <input type="number" id="studentId" name="studentId" required><br>
+      
+      <label for="fname">Full name:</label><br>
+      <input type="text" id="fname" name="fname" required><br>
+      
+      
+      <label for="bday">Birthday:</label><br>
+      <input type="date" id="bday" name="bday" required><br>
+      
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br>
+      </fieldset><br>
+      
+      <fieldset class = "minfo">
+      <legend>Membership Information</legend>
+      <label for="grade">Grade Level:</label><br>
+      <select name="grade" id="grade" required>
+        <option value="">Select an Option</option>
+        <option value="g7">Grade 7</option>
+        <option value="g8">Grade 8</option>
+        <option value="g9">Grade 9</option>
+        <option value="g10">Grade 10</option>
+        <option value="g11">Grade 11</option>
+        <option value="g12">Grade 12</option>
+      </select><br>
+      
+      
+      <label for="cpno">Phone number:</label><br>
+      <input type="text" id="cpno" name="cpno" required><br>
+      
+      <label for="inex">Intern/Extern</label><br>
+      <input type="radio" id="intern" name="inex" value="Intern" required>
+      <label for="intern">Intern</label><br>
+      <input type="radio" id="extern" name="inex" value="Extern" required>
+      <label for="extern">Extern</label><br>
+      
+      <label for="club">Preferred Organization/Club:</label><br>
+      <select name="club" id="club" required>
+        <option value="">Select an Option</option>
+        <option value="acts">ACTS (Christian club)</option>
+        <option value="likha">Likha (art club)</option>
+        <option value="exposure">Exposure (photography club)</option>
+        <option value="bake">Bake Club (edi bake club ano pa)</option>
+        <option value="astro">Astrosoc (astronomy club)</option>
+        <option value="comp">Computron (CS + IT club)</option>
+      </select><br>
+      
+      <label for="explain">Why do you want to join?</label><br>
+      <textarea id="explain" name="explain" rows=7 cols=80 required></textarea><br>
+      
+      </fieldset>
+      
+      <div class="button">
+        <button type="submit" class="submit.btn">Submit</button>
+        <button type="reset" class="reset.btn">Reset</button>
+        <button type="button" id="viewBtn">View Signups</button>
+      </div>
+    </form>
+    
+    <script>
+      var form = document.getElementById("signupForm");
+      var viewBtn = document.getElementById("viewBtn");
+      
+      viewBtn.onclick = function(){
+        window.location.href = "viewSignUps.html";
+      }
+      
+      form.onsubmit = function(){
+        var ok = confirmSubmit();
+        if (!ok) return false;
+        
+      var studentId = document.getElementById('studentId').value;
+      var fullName = document.getElementById('fname').value;
+      var birthday = document.getElementById('bday').value;
+      var email = document.getElementById('email').value;
+      var grade = document.getElementById('grade').value;
+      var phone = document.getElementById('cpno').value;
+      var club = document.getElementById('club').value;
+      var reason = document.getElementById('explain').value;
+      
+      var inex="";
+      var radios = document.getElementsByName("inex");
+      for (var i = 0; i < radios.length; i++){
+        if (radios[i].checked){
+          inex = radios[i].value;
+        }
+      }
+      
+      var signup = {
+        studentId: studentId,
+        fullName: fullName,
+        birthday: birthday,
+        email: email,
+        grade: grade,
+        phone: phone,
+        internExtern: inex,
+        club: club,
+        reason: reason
+      };
+      
+      var raw = localStorage.getItem("clubSignups");
+      var list;
+      if (raw == null){
+        list = [];
+      } else{
+        list = JSON.parse(raw);
+      }
+      
+      list.push(signup);
+      localStorage.setItem("clubSignups", JSON.stringify(list));
+      
+      alert("Saved!");
+      form.reset();
+      return false;
+      };
+    </script>
+    
+
+  
+  </body>
+</html>

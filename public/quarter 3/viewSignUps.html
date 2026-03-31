@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>View Signups</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    table{
+      border-collapse: collapse;
+      width: 100%;
+      background: #FCF5E5;
+    }
+    
+    th, td{
+      border: 1px solid #C08A97;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th{
+      background: #E0A0B1;
+      color: white;
+    }
+    
+    .panel{
+      background: #FCF5E5;
+      border: 2px solid #C08A97;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    
+    .row{
+      margin: 10px 0;
+    }
+    
+    button, select{
+      font-size: 16px;
+      padding: 8px;
+      border: 2px solid black;
+      border-radius: 6px;
+      font-family: Verdana;
+    }
+  </style>
+</head>
+  <body>
+    <div class="panel">
+      <h2>Club Sign-ups</h2>
+      
+      <div class="row">
+        <label for="clubFilter">Filter by club:</label>
+        <select id="clubFilter">
+          <option value="all">All clubs</option>
+          <option value="acts">ACTS (Christian Club)</option>
+          <option value="likha">Likha (Art Club)</option>
+          <option value="exposure">Exposure (Photography Club)</option>
+          <option value="bake">Bake Club</option>
+          <option value="elips">SAGALA (Dance Club)</option>
+          <option value="comp">Computron (CS + IT club)</option>
+      </select>
+      </div>
+      
+      <div class="row">
+        <b>Total sign-ups shown:</b> <span id="totalCount">0</span>
+      </div>
+    
+      <div class="row">
+        <button type="button" id="backBtn">Back to Form</button>
+      </div>
+    </div><br>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Full Name</th>
+          <th>Birthday</th>
+          <th>Email</th>
+          <th>Grade</th>
+          <th>Phone</th>
+          <th>Intern/Extern</th>
+          <th>Club</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    
+    
+  <script>
+    document.getElementById("backBtn").onclick = function(){
+      window.location.href = "index.html";
+    };
+    
+    var raw = localStorage.getItem("clubSignups");
+    var signups;
+    
+    if (raw == null) {
+      signups = [];
+    } else {
+      signups = JSON.parse(raw);
+    }
+
+    function clubLabel(clubValue) {
+      if (clubValue == "acts") return "ACTS (Christian Club)";
+      if (clubValue == "likha") return "Likha (Art Club)";
+      if (clubValue == "exposure") return "Exposure (Photography Club)";
+      if (clubValue == "bake") return "Bake Club";
+      if (clubValue == "elips") return "SAGALA (Dance Club)";
+      if (clubValue == "comp") return "Computron (CS + IT club)";
+      return clubValue;
+    }
+
+    function render() {
+      var selected = document.getElementById("clubFilter").value;
+      var body = document.getElementById("tableBody");
+
+      body.innerHTML = "";
+      var count = 0;
+
+      for (var i = 0; i < signups.length; i++) {
+        var s = signups[i];
+
+        if (selected == "all" || s.club == selected) {
+          var row = document.createElement("tr");
+
+          var td1 = document.createElement("td");
+          td1.textContent = s.studentId;
+          row.appendChild(td1);
+
+          var td2 = document.createElement("td");
+          td2.textContent = s.fullName;
+          row.appendChild(td2);
+
+          var td3 = document.createElement("td");
+          td3.textContent = s.birthday;
+          row.appendChild(td3);
+
+          var td4 = document.createElement("td");
+          td4.textContent = s.email;
+          row.appendChild(td4);
+
+          var td5 = document.createElement("td");
+          td5.textContent = s.grade;
+          row.appendChild(td5);
+
+          var td6 = document.createElement("td");
+          td6.textContent = s.phone;
+          row.appendChild(td6);
+
+          var td7 = document.createElement("td");
+          td7.textContent = s.internExtern;
+          row.appendChild(td7);
+
+          var td8 = document.createElement("td");
+          td8.textContent = clubLabel(s.club);
+          row.appendChild(td8);
+
+          var td9 = document.createElement("td");
+          td9.textContent = s.reason;
+          row.appendChild(td9);
+
+          body.appendChild(row);
+          count++;
+        }
+      }
+
+      if (count == 0) {
+        var row2 = document.createElement("tr");
+        var td = document.createElement("td");
+        td.colSpan = 9;
+        td.textContent = "No sign-ups found.";
+        row2.appendChild(td);
+        body.appendChild(row2);
+      }
+
+      document.getElementById("totalCount").textContent = count; // show total signups currently displayed
+    }
+
+    render();
+
+    document.getElementById("clubFilter").onchange = function () {
+      render();
+    };
+  </script>
+</body>
+</html>
